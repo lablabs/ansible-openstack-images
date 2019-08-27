@@ -1,0 +1,21 @@
+---
+- name: Fetch ubuntu cloud images to /tmp
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/tmp/{{ item.name }}.img"
+  with_items:
+    - "{{ openstack_images }}"
+
+- name: Create ubuntu image in glance service
+  os_image:
+    cloud: "{{ openstack_cloud | default(omit) }}"
+    auth: "{{ openstack_auth | default(omit) }}"
+    verify: "{{ openstack_ssl_verify | default(true) }}"
+    name: "{{ item.name }}"
+    state: present
+    is_public: "{{ item.public }}"
+    disk_format: "{{ item.disk }}"
+    container_format: "{{ item.container }}"
+    filename: "/tmp/{{ item.name }}.img"
+  with_items:
+    - "{{ openstack_images }}"
