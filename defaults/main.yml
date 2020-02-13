@@ -1,2 +1,7 @@
 ---
 openstack_images: []
+#  - name: "ubuntu-bionic"
+#    url: https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
+#    disk: qcow2
+#    container: bare
+#    public: false
