@@ -3,7 +3,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.name }}.img"
-  with_items:
+  loop:
     - "{{ openstack_images }}"
 
 - name: Create ubuntu image in glance service
@@ -17,5 +17,5 @@
     disk_format: "{{ item.disk }}"
     container_format: "{{ item.container }}"
     filename: "/tmp/{{ item.name }}.img"
-  with_items:
+  loop:
     - "{{ openstack_images }}"
